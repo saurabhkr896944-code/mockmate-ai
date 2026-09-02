@@ -2,176 +2,156 @@
 
 > **Practice the interview, not just the answer.**
 
-MockMate AI is an adaptive AI-avatar interview practice MVP built for Product Management candidates. It is designed around a simple loop: **practice → receive targeted feedback → improve → practice again**.
+MockMate AI is an adaptive AI-avatar interview practice application for Product Management candidates. It simulates an interviewer, adapts follow-up questions to the candidate's answers, and provides a structured post-interview debrief.
 
-## 🔗 Product Links
+## Features
 
-- **Live MVP:** https://mockmate-ai-1-28u3.onrender.com
-- **Feedback Form:** https://forms.gle/ew9mzbCoonXkGpjN9
-
-## 🎯 Product Problem
-
-PM candidates can find plenty of interview questions and answer resources, but practice often lacks the pressure and interaction of a real interview. MockMate AI focuses on that gap by simulating an interviewer that can respond to the candidate's answers, ask adaptive follow-ups, and provide an immediate debrief.
-
-## 💡 Product Experience
-
-The MVP follows a focused interview loop:
-
-1. **Choose a practice setup** — role, interview type and difficulty.
-2. **Optionally ground the session in a resume** — PDF and DOCX resumes are supported.
-3. **Start the AI-avatar interview** — interact through voice or text.
-4. **Answer and receive adaptive follow-ups** — questions are generated from the latest answer and interview history.
-5. **Complete the interview** — the experience targets a 10-minute, up-to-six-question loop.
-6. **Review the debrief** — receive competency scores, strengths, improvements and a recommended next practice.
-
-## ✨ Key Features
-
-- AI interviewer avatar with explicit AI disclosure
-- Voice input and text input with read-aloud support
-- Adaptive follow-up questioning
-- Resume-aware interview mode
-- PDF/DOCX resume parsing
-- Question-history normalization to reduce repetition
-- Deterministic fallback / Demo Mode when live AI is unavailable
-- 10-minute interview timer and six-question target loop
-- Six PM competency dimensions:
+- **AI interviewer avatar** with clear AI disclosure
+- **Voice and text interaction** with read-aloud support
+- **Adaptive follow-up questions** based on the candidate's latest answer and interview history
+- **Resume-aware interviews** using uploaded PDF or DOCX resumes
+- **Question-history handling** designed to reduce repetitive questions and rotate interview dimensions
+- **10-minute interview loop** with a target of up to six questions
+- **Structured debrief** across six PM competencies:
   - Problem framing
   - User insight
   - Analytical thinking
   - Metrics
   - Prioritization
   - Communication
-- Session history and progress tracking
-- Analytics event tracking and CSV export
-- Transcript export
-- Next-practice recommendation
-- Automated tests
+- **Session history and progress tracking**
+- **Transcript export**
+- **Analytics event tracking and CSV export**
+- **Next-practice recommendations**
+- **Deterministic fallback mode** when live AI is unavailable
 
-## 🧠 AI Design
+## How It Works
 
-MockMate AI supports two interview modes:
+```text
+Practice Setup
+      ↓
+Optional Resume Grounding
+      ↓
+AI-Avatar Interview
+      ↓
+Answer → Adaptive Follow-up
+      ↓
+Interview Debrief
+      ↓
+Next Practice
+```
 
-### Live AI mode
+The application supports a live AI mode and a local fallback mode. In live mode, the server sends interview-generation and feedback requests to the configured OpenAI model. If live AI is unavailable, the local interview engine keeps the core experience functional.
 
-When `OPENAI_API_KEY` is configured, the server uses the OpenAI Responses API for:
+## Resume Handling
 
-- Initial interview questions
-- Adaptive follow-up questions
-- Post-interview feedback
+Resume uploads support PDF and DOCX files with a 5 MB size limit. The server extracts the resume text for the current request and removes the temporary uploaded file after processing, including during error handling.
 
-The model is configured through `OPENAI_MODEL` and defaults to `gpt-5.6-luna` in the application.
+Resume content is used as interview context for the current session rather than being stored in a persistent resume database.
 
-### Demo / fallback mode
-
-If a live AI key is unavailable or an AI request fails, the application uses the local interview engine. This keeps the core interview flow demonstrable without presenting a simulated response as live AI.
-
-The adaptive engine also uses interview history to avoid repeating previously asked questions and rotates across different reasoning dimensions.
-
-## 📄 Resume Privacy
-
-Resume uploads are restricted to PDF and DOCX files with a 5 MB upload limit. Uploaded files are processed server-side for text extraction and the temporary uploaded file is deleted after extraction, including after error handling.
-
-Resume-derived interview content is used as context for the current interview request; the application does not provide a persistent resume database.
-
-## 🛠️ Technology Stack
+## Tech Stack
 
 - **Runtime:** Node.js 20+
-- **Server:** Express 5
+- **Backend:** Express 5
 - **Language:** JavaScript / ES modules
 - **AI:** OpenAI API
 - **Resume parsing:** `pdf-parse`, `mammoth`
 - **File uploads:** `multer`
-- **Configuration:** `dotenv`
+- **Environment configuration:** `dotenv`
 - **Deployment:** Render
 - **Testing:** Node.js built-in test runner
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 mockmate-ai/
-├── public/                  # Web application UI and client assets
+├── public/                  # Frontend UI and static assets
 ├── src/
-│   ├── interview-engine.js  # Adaptive / deterministic interview logic
-│   └── resume-parser.js     # PDF/DOCX resume extraction
+│   ├── interview-engine.js  # Adaptive and fallback interview logic
+│   └── resume-parser.js     # PDF/DOCX text extraction
 ├── server.js                # Express server and API routes
 ├── package.json             # Scripts and dependencies
 ├── package-lock.json
-├── ASSIGNMENT_ALIGNMENT.md  # Mapping to assignment criteria
+├── ASSIGNMENT_ALIGNMENT.md
 └── FINAL_SUBMISSION_CHECKLIST.md
 ```
 
-## 🚀 Run Locally
+## Getting Started
 
-### Prerequisites
+### Requirements
 
-- Node.js 20+
+- Node.js 20 or newer
 
-### Install and start
+### Install
 
 ```bash
 npm install
+```
+
+### Run
+
+```bash
 npm start
 ```
 
-Open:
+Open `http://localhost:3000` in your browser.
 
-```text
-http://localhost:3000
+### Development mode
+
+```bash
+npm run dev
 ```
 
-### Enable live AI
+## Configuration
 
-Create a local `.env` file and configure:
+Create a `.env` file in the project root when live AI responses are required:
 
-```text
+```env
 OPENAI_API_KEY=your_api_key
 OPENAI_MODEL=gpt-5.6-luna
 ```
 
-Do **not** commit API keys or secrets to GitHub.
+If `OPENAI_API_KEY` is not configured, MockMate AI uses its local fallback engine.
 
-Without `OPENAI_API_KEY`, the application runs in its clearly labeled Demo Mode.
+**Never commit API keys or other secrets to the repository.**
 
-## 🧪 Testing
+## Testing
 
-Run the automated test suite with:
+Run the automated tests with:
 
 ```bash
 npm test
 ```
 
-## 📊 Validation Approach
+## AI Behavior
 
-The MVP includes a structured feedback mechanism covering:
+The live interview flow uses AI for three main tasks:
 
-- Interview realism
-- Follow-up relevance
-- Resume personalization
-- Willingness to use MockMate AI again
-- Overall experience
-- Qualitative likes and improvement requests
+1. Generate an initial interview question.
+2. Generate an adaptive follow-up from the latest answer and interview history.
+3. Evaluate the completed transcript and produce structured feedback.
 
-Real user feedback should be reported as collected. **No synthetic or illustrative data should be represented as real user traction, retention, conversion or testimonials.**
+The application instructs the interviewer not to invent resume facts and to avoid repeating previous questions. The fallback interview engine provides a deterministic alternative for development and demonstration.
 
-## 🔐 AI Disclosure
+## Privacy & Safety
 
-MockMate AI clearly communicates that the interviewer is AI-generated and that the product is intended for interview practice rather than hiring decisions.
+- Resume uploads are limited to PDF/DOCX and 5 MB.
+- Temporary uploaded files are deleted after extraction.
+- The product identifies the interviewer as AI-generated.
+- MockMate AI is an interview-practice tool and is not a hiring or employment decision-maker.
+- API credentials should be stored in environment variables rather than source code.
 
-## 📚 Assignment Materials
+## Validation
 
-The repository also contains supporting product and submission materials, including the assignment-alignment document, final submission checklist, product case study and presentation assets where applicable.
+The application includes a structured feedback form for evaluating interview realism, follow-up relevance, resume personalization, willingness to use the product again, and overall experience.
 
-## 👤 Project
+When reporting product usage or feedback, use real collected data. Do not present illustrative or synthetic data as real user traction.
 
-Built as an Internship cum PPO Recruitment product assignment with a focus on:
+## Links
 
-- Sharp problem definition
-- Narrow MVP scope
-- AI-native product experience
-- Fast iteration
-- Transparent validation
-- Evidence-led product decisions
+- **Live application:** https://mockmate-ai-1-28u3.onrender.com
+- **Feedback form:** https://forms.gle/ew9mzbCoonXkGpjN9
 
----
+## License
 
-**MockMate AI — Practice the interview, not just the answer.**
+No open-source license has been added yet. Unless a license is added, the repository should not be assumed to grant permission to reuse or redistribute the code.
