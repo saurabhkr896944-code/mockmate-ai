@@ -71,9 +71,7 @@ mockmate-ai/
 │   └── resume-parser.js     # PDF/DOCX text extraction
 ├── server.js                # Express server and API routes
 ├── package.json             # Scripts and dependencies
-├── package-lock.json
-├── ASSIGNMENT_ALIGNMENT.md
-└── FINAL_SUBMISSION_CHECKLIST.md
+└── package-lock.json
 ```
 
 ## Getting Started
