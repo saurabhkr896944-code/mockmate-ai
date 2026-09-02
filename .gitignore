@@ -1,0 +1,6 @@
+node_modules/
+.tmp-uploads/
+.env
+.env.*
+!.env.example
+npm-debug.log*

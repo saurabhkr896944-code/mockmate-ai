@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="MockMate AI — adaptive interview practice for Product Management candidates.">
+<title>MockMate AI · Interview Lab</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#" data-page="dashboard"><span class="logo">M</span><span>mockmate<span class="brand-ai">AI</span></span></a>
+    <div class="workspace-label">INTERVIEW LAB</div>
+    <nav class="side-nav">
+      <a href="#" class="nav-item active" data-page="dashboard"><span>⌂</span>Overview</a>
+      <a href="#" class="nav-item" data-page="practice"><span>◎</span>Practice</a>
+      <a href="#" class="nav-item" data-page="progress"><span>◒</span>Progress</a>
+      <a href="#" class="nav-item" data-page="insights"><span>◈</span>Insights</a>
+    </nav>
+    <div class="side-spacer"></div>
+    <div class="ai-status"><span class="status-dot"></span><div><b>AI interviewer</b><small id="aiStatus">Checking connection…</small></div></div>
+    <a class="nav-item subtle" href="/case-study.html" target="_blank"><span>↗</span>Product case study</a>
+    <div class="user-chip"><div class="user-avatar">SK</div><div><b>Candidate</b><small>PM track</small></div><span>•••</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="mobile-head">
+      <button id="menuBtn">☰</button><a class="brand" href="#"><span class="logo">M</span><span>mockmate<span class="brand-ai">AI</span></span></a>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+      <div class="topline"><div><span class="eyebrow">OVERVIEW</span><h1>Good morning, candidate.</h1><p class="sub">Build interview confidence through deliberate practice.</p></div><button class="primary" id="quickStart">Start practice <span>→</span></button></div>
+      <div class="hero-card">
+        <div><div class="eyebrow light">YOUR NEXT SESSION</div><h2>Product Sense · Intermediate</h2><p>Practice product framing, prioritization and metrics in a 10-minute adaptive interview.</p><div class="hero-meta"><span>~10 min</span><span>6 questions</span><span>AI interviewer</span></div><button class="light-btn" id="heroStart">Start session <span>→</span></button></div>
+        <div class="hero-avatar">
+          <div class="ring"></div><div class="face"><i class="hair"></i><i class="eye e1"></i><i class="eye e2"></i><i class="nose"></i><i class="smile"></i></div><div class="shoulders"></div>
+          <div class="avatar-name"><b>Alex</b><span>AI Interviewer</span><em><i></i> LIVE</em></div>
+        </div>
+      </div>
+      <div class="section-row"><h3>Your practice</h3><button class="text-btn" data-page="progress">View progress →</button></div>
+      <div class="metric-grid">
+        <div class="metric"><span>SESSIONS</span><b id="mSessions">0</b><small>completed</small></div>
+        <div class="metric"><span>AVG. SCORE</span><b id="mScore">—</b><small>out of 100</small></div>
+        <div class="metric"><span>REPEAT RATE</span><b id="mRepeat">—</b><small>second sessions</small></div>
+        <div class="metric"><span>FOCUS</span><b id="mFocus">Metrics</b><small>recommended</small></div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-head"><div><h3>Recent sessions</h3><p>Local history from this browser.</p></div><span class="pill">Private</span></div>
+          <div id="recentSessions" class="session-list empty">No completed sessions yet. Your first one will appear here.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h3>How MockMate works</h3><p>The product loop behind the MVP.</p></div></div>
+          <div class="loop-list">
+            <div><b>01</b><span><strong>Answer</strong>Give a voice or text response.</span></div>
+            <div><b>02</b><span><strong>Adapt</strong>The next probe reacts to your reasoning.</span></div>
+            <div><b>03</b><span><strong>Debrief</strong>Get evidence-based strengths and gaps.</span></div>
+            <div><b>04</b><span><strong>Repeat</strong>Practice what the feedback says matters next.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICE SETUP -->
+    <section class="page" id="page-practice">
+      <div class="topline"><div><span class="eyebrow">PRACTICE</span><h1>Choose your interview.</h1><p class="sub">Start with one skill. The interviewer will adapt around your answers.</p></div></div>
+      <div class="setup-layout">
+        <div class="setup-main">
+          <div class="setup-card">
+            <label>ROLE<select id="role"><option>Product Manager Intern</option><option>Associate Product Manager</option><option>Product Analyst</option></select></label>
+            <label>INTERVIEW TYPE<select id="type"><option>Product Sense</option><option>Metrics</option><option>Product Strategy</option><option>Behavioral</option><option>Mixed PM</option></select></label>
+            <label>DIFFICULTY<div class="segmented" id="difficulty"><button class="selected" data-v="Intermediate">Intermediate</button><button data-v="Beginner">Beginner</button><button data-v="Hard">Hard</button></div></label>
+          </div>
+          <div class="resume-card">
+            <div class="resume-copy"><span class="eyebrow">RESUME-AWARE MODE</span><h3>Let Alex interview you from your resume.</h3><p>Upload a PDF or DOCX. MockMate will use the extracted content to ask questions about your projects, experience, achievements and the decisions behind them.</p></div>
+            <label class="resume-upload" for="resumeFile"><span class="resume-icon">↑</span><span><b id="resumeFileName">Upload resume</b><small>PDF or DOCX · max 5 MB</small></span><input id="resumeFile" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
+            <div id="resumeStatus" class="resume-status">Optional. Without a resume, MockMate runs a standard PM interview.</div>
+            <button id="removeResume" class="text-btn resume-remove" type="button" hidden>Remove resume</button>
+          </div>
+          <div class="disclosure"><span>✦</span><div><b>You're speaking with AI.</b><p>MockMate is an AI practice interviewer, not a human recruiter. Resume content is used for this session only and is not saved to the server.</p></div></div>
+          <button class="primary full" id="beginInterview">Start interview <span>→</span></button>
+        </div>
+        <aside class="session-preview">
+          <span class="eyebrow">SESSION DESIGN</span><h3>10-minute focused loop</h3>
+          <div class="preview-row"><span>Questions</span><b>Up to 6</b></div><div class="preview-row"><span>Answer mode</span><b>Voice / text</b></div><div class="preview-row"><span>Follow-ups</span><b>Adaptive</b></div><div class="preview-row"><span>Debrief</span><b>6 competencies</b></div>
+          <hr><small>Tip: Don't optimize for a perfect answer. Explain your assumptions and trade-offs.</small>
+        </aside>
+      </div>
+    </section>
+
+    <!-- LIVE INTERVIEW -->
+    <section class="page" id="page-interview">
+      <div class="interview-head"><div><span class="eyebrow">LIVE INTERVIEW</span><h1 id="liveTitle">Product Manager Intern</h1><span id="resumeModeBadge" class="pill" hidden>RESUME-AWARE</span></div><div class="timer"><span id="timer">10:00</span><small>session</small></div></div>
+      <div class="progress-line"><span id="progressBar"></span></div>
+      <div class="interview-layout">
+        <div class="interviewer-card">
+          <div class="avatar-stage"><div class="halo"></div><div class="face big"><i class="hair"></i><i class="eye e1"></i><i class="eye e2"></i><i class="nose"></i><i class="smile"></i></div><div class="shoulders"></div><div class="sound-wave"><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="interviewer-footer"><div><b>Alex</b><span>AI Interviewer</span></div><div class="live-tag"><i></i> LIVE</div></div>
+          <div class="competency-card"><span>TESTING</span><b id="liveCompetency">Problem framing</b><small id="liveIntent">Clarify user, problem and prioritization logic.</small></div>
+        </div>
+        <div class="question-card">
+          <div class="question-meta"><span>QUESTION <b id="qNo">01</b></span><button class="icon-btn" id="readAloud" title="Read aloud">◖</button></div>
+          <div class="question" id="question">Preparing your interviewer…</div>
+          <div class="answer-shell"><textarea id="answer" placeholder="Type your answer, or use voice input…" rows="8"></textarea><div class="answer-footer"><button class="voice-btn" id="voiceBtn"><span>●</span><b id="voiceLabel">Use voice</b></button><span id="wordCount">0 words</span></div></div>
+          <div class="answer-note">Your answer is used to generate the next question. Don't share sensitive personal information.</div>
+          <button class="primary full" id="submit">Submit answer <span>→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="page" id="page-results">
+      <div class="results-top"><div><span class="eyebrow">SESSION DEBRIEF</span><h1>Here's what to work on.</h1><p class="sub" id="resultSummary">Analyzing your session…</p></div><button class="secondary" id="practiceAgain">Practice again</button></div>
+      <div class="score-hero"><div><span>OVERALL SCORE</span><strong id="overall">—</strong><small>/100</small></div><div class="score-copy"><b id="resultMode">AI DEBRIEF</b><p>Scores are coaching signals, not hiring predictions.</p></div></div>
+      <div class="results-grid">
+        <div class="panel"><div class="panel-head"><div><h3>Competency profile</h3><p>What your answers demonstrated.</p></div></div><div id="bars"></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Coach notes</h3><p>Turn feedback into your next session.</p></div></div><div class="coach-block"><span>WHAT YOU DID WELL</span><ul id="strengths"></ul></div><div class="coach-block"><span>WHERE TO IMPROVE</span><ul id="improvements"></ul></div><div class="next-card" id="nextPractice"></div></div>
+      </div>
+      <div class="transcript panel"><div class="panel-head"><div><h3>Interview transcript</h3><p>Saved locally in this browser.</p></div><button class="text-btn" id="downloadTranscript">Export transcript</button></div><div id="transcript"></div></div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="page" id="page-progress">
+      <div class="topline"><div><span class="eyebrow">PROGRESS</span><h1>Build your interview muscle.</h1><p class="sub">Your local practice history, not a leaderboard.</p></div><button class="primary" data-page="practice">New session <span>→</span></button></div>
+      <div class="progress-cards">
+        <div class="progress-big"><span>SESSIONS</span><b id="pSessions">0</b><small>completed</small></div>
+        <div class="progress-big"><span>AVG SCORE</span><b id="pAvg">—</b><small>/100</small></div>
+        <div class="progress-big"><span>BEST SCORE</span><b id="pBest">—</b><small>/100</small></div>
+      </div>
+      <div class="two-col"><div class="panel"><div class="panel-head"><div><h3>Skill focus</h3><p>Recommended from your session history.</p></div></div><div id="skillFocus"></div></div>
+      <div class="panel"><div class="panel-head"><div><h3>Session history</h3><p>Stored locally; exportable for validation.</p></div></div><div id="history"></div></div></div>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section class="page" id="page-insights">
+      <div class="topline"><div><span class="eyebrow">INSIGHTS</span><h1>Product analytics console.</h1><p class="sub">Behavioral events captured locally in this browser.</p></div><button class="secondary" id="exportEvents">Export CSV</button></div>
+      <div class="analytics-grid"><div class="analytics-card"><span>LANDING VIEWS</span><b id="aLanding">0</b></div><div class="analytics-card"><span>STARTED</span><b id="aStarted">0</b></div><div class="analytics-card"><span>COMPLETED</span><b id="aCompleted">0</b></div><div class="analytics-card"><span>FEEDBACK VIEWED</span><b id="aFeedback">0</b></div></div>
+      <div class="panel"><div class="panel-head"><div><h3>Validation funnel</h3><p>Replace this local console with a shared analytics provider for multi-user validation.</p></div><span class="pill">LOCAL MVP</span></div><div id="funnel"></div></div>
+    </section>
+  </main>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
